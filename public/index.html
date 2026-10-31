@@ -1,0 +1,117 @@
+﻿<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#10231f" />
+    <meta name="description" content="Pilih rentang tanggal, pratinjau percakapan arsip, lalu keluarkan dari Arsip Socialchat." />
+    <title>Socialchat Archive Manager</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Socialchat Archive Manager">
+          <span class="brand-mark" aria-hidden="true">S</span>
+          <span>Socialchat <span class="brand-muted">Archive Manager</span></span>
+        </a>
+        <span class="public-badge"><span class="status-dot"></span> Halaman publik</span>
+      </header>
+
+      <section class="hero">
+        <div class="eyebrow"><span class="eyebrow-line"></span> PENGELOLAAN ARSIP</div>
+        <h1>Keluarkan percakapan<br /><span>dari Arsip.</span></h1>
+        <p class="hero-copy">Tentukan tanggal awal dan akhir, periksa jumlah percakapan yang cocok, lalu jalankan unarsip secara bertahap.</p>
+      </section>
+
+      <section class="panel credentials-panel" aria-labelledby="connect-title">
+        <div class="section-heading">
+          <div class="step-number">01</div>
+          <div>
+            <h2 id="connect-title">Login ke Socialchat</h2>
+            <p>Masukkan akun Socialchat. Sesi hanya disimpan di memori halaman selama halaman ini terbuka.</p>
+          </div>
+        </div>
+
+        <div id="login-form" class="login-form">
+          <div class="field-grid token-grid">
+            <label class="field">
+              <span>Email Socialchat</span>
+              <input id="login-email" type="email" autocomplete="username" spellcheck="false" placeholder="nama@contoh.com" />
+            </label>
+            <label class="field">
+              <span>Password</span>
+              <input id="login-password" type="password" autocomplete="current-password" placeholder="Password Socialchat" />
+            </label>
+          </div>
+          <button id="login-button" class="button button-secondary" type="button">Login Socialchat</button>
+        </div>
+
+        <div id="session-area" class="session-area" hidden>
+          <span id="session-status">Terhubung ke Socialchat.</span>
+          <button id="logout-button" class="button button-secondary" type="button">Logout</button>
+        </div>
+        <p class="credential-note">Saat website di-deploy, email dan password dikirim melalui HTTPS ke fungsi server untuk login Socialchat. Password tidak disimpan. Token sesi disimpan di sessionStorage tab ini agar halaman bisa di-refresh; logout atau menutup tab menghapus sesi.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="range-title">
+        <div class="section-heading">
+          <div class="step-number">02</div>
+          <div>
+            <h2 id="range-title">Pilih rentang tanggal</h2>
+            <p>Tanggal berdasarkan waktu pesan terakhir, zona waktu Jakarta, termasuk kedua tanggal batas.</p>
+          </div>
+        </div>
+        <div class="field-grid date-grid">
+          <label class="field">
+            <span>Dari tanggal</span>
+            <input id="from-date" type="date" />
+          </label>
+          <label class="field">
+            <span>Sampai tanggal</span>
+            <input id="to-date" type="date" />
+          </label>
+        </div>
+        <button id="preview-button" class="button button-secondary" type="button">
+          <span class="button-icon" aria-hidden="true">&#x2315;</span> Pratinjau percakapan
+        </button>
+      </section>
+
+      <section id="preview-panel" class="panel results-panel" aria-live="polite" hidden>
+        <div class="section-heading">
+          <div class="step-number">03</div>
+          <div>
+            <h2>Pratinjau hasil</h2>
+            <p id="range-summary"></p>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card stat-primary"><span class="stat-label">Akan di-unarsip</span><strong id="eligible-count">0</strong></div>
+          <div class="stat-card"><span class="stat-label">Di luar tanggal</span><strong id="excluded-count">0</strong></div>
+          <div class="stat-card"><span class="stat-label">Tanpa tanggal</span><strong id="missing-count">0</strong></div>
+        </div>
+        <div id="action-area" class="action-area" hidden>
+          <label class="field confirm-field">
+            <span>Ketik <code id="confirm-phrase">UNARSIP</code> untuk mengonfirmasi</span>
+            <input id="confirm-input" type="text" autocomplete="off" placeholder="UNARSIP" />
+          </label>
+          <button id="unarchive-button" class="button button-danger" type="button">Unarsipkan percakapan</button>
+          <p class="action-note">Perubahan langsung diterapkan ke akun Socialchat bersama dan akan terlihat oleh penggunanya.</p>
+        </div>
+        <div id="progress-area" class="progress-area" hidden>
+          <div class="progress-heading"><span id="progress-label">Menyiapkan...</span><span id="progress-value">0%</span></div>
+          <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
+        </div>
+      </section>
+
+      <div id="notice" class="notice" role="status" hidden></div>
+
+      <footer class="footer">
+          <p>Halaman dapat dibuka publik. Untuk perubahan, diperlukan sesi Socialchat yang valid.</p>
+        <p>Daftar pratinjau hanya memuat ID serta tanggal pesan terakhir; isi pesan dan nama kontak tidak diambil.</p>
+      </footer>
+    </main>
+  </body>
+</html>
+

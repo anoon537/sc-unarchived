@@ -1,0 +1,9 @@
+.venv/
+.socialchat-browser-profile/
+.env
+.env.*
+!.env.example
+.vercel/
+node_modules/
+socialchat-archive-inventory.json
+__pycache__/
