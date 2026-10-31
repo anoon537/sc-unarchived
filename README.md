@@ -32,8 +32,3 @@ Buka `http://127.0.0.1:4173`. Server membuat secret penandatangan lokal acak unt
 Hubungkan folder proyek ini sebagai proyek Vercel, set `UNARCHIVE_SIGNING_SECRET` pada environment Production (dan Preview jika diperlukan), lalu deploy. Jangan masukkan secret ke Git. Deploy belum dilakukan dari workspace ini karena belum ada proyek Vercel yang terhubung maupun autentikasi CLI.
 
 Vercel membuat Functions dari file di folder `api/`; lihat [dokumentasi Vercel Functions](https://vercel.com/docs/functions) dan [konfigurasi `vercel.json`](https://vercel.com/docs/project-configuration/vercel-json).
-
-## CLI Python lama
-
-`socialchat_unarchive.py`, `.venv`, dan `.socialchat-browser-profile` masih ada sebagai alat lokal lama. Folder profil menyimpan sesi login Socialchat.
-

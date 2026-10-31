@@ -15,6 +15,7 @@
     preview: null,
     busy: false,
   };
+  let noticeTimer = null;
   const BATCH_SIZE = 5;
 
   const fields = {
@@ -27,12 +28,19 @@
 
   function showNotice(message, kind = "info") {
     const notice = $("notice");
+    clearTimeout(noticeTimer);
     notice.textContent = message;
     notice.dataset.kind = kind;
     notice.hidden = false;
+    noticeTimer = setTimeout(() => {
+      notice.hidden = true;
+      noticeTimer = null;
+    }, kind === "error" ? 8000 : 5000);
   }
 
   function clearNotice() {
+    clearTimeout(noticeTimer);
+    noticeTimer = null;
     $("notice").hidden = true;
   }
 
@@ -54,9 +62,11 @@
       refreshToken: credentials?.refreshToken || state.credentials.refreshToken,
     };
     sessionStorage.setItem(SESSION_KEY, JSON.stringify(state.credentials));
-    $("session-status").textContent = `Terhubung${credentials?.user?.name ? ` sebagai ${credentials.user.name}` : " ke Socialchat"}.`;
-    $("login-form").hidden = true;
-    $("session-area").hidden = false;
+    $("dashboard-session-status").textContent = credentials?.user?.name
+      ? `Terhubung sebagai ${credentials.user.name}`
+      : "Terhubung ke Socialchat";
+    $("login-view").hidden = true;
+    $("dashboard-view").hidden = false;
   }
 
   async function login() {
@@ -87,9 +97,10 @@
     sessionStorage.removeItem(SESSION_KEY);
     fields.email.value = "";
     fields.password.value = "";
-    $("login-form").hidden = false;
-    $("session-area").hidden = true;
+    $("dashboard-view").hidden = true;
+    $("login-view").hidden = false;
     $("preview-panel").hidden = true;
+    $("empty-state").hidden = false;
     clearNotice();
   }
 
@@ -117,12 +128,14 @@
 
   function renderPreview(preview) {
     $("preview-panel").hidden = false;
+    $("empty-state").hidden = true;
     $("range-summary").textContent = `${preview.fromDate} sampai ${preview.toDate} \u00b7 zona waktu Jakarta`;
     $("eligible-count").textContent = preview.entries.length.toLocaleString("id-ID");
     $("excluded-count").textContent = preview.excludedAfterDate.toLocaleString("id-ID");
     $("missing-count").textContent = preview.excludedMissingDate.toLocaleString("id-ID");
     $("confirm-phrase").textContent = `UNARSIP ${preview.entries.length}`;
     $("action-area").hidden = preview.entries.length === 0;
+    $("zero-state").hidden = preview.entries.length !== 0;
     $("progress-area").hidden = true;
   }
 
@@ -228,6 +241,8 @@
       $("action-area").hidden = true;
       $("confirm-input").value = "";
       state.preview = null;
+      $("preview-panel").hidden = true;
+      $("empty-state").hidden = false;
       showNotice(`${succeeded.toLocaleString("id-ID")} percakapan berhasil dikeluarkan dari Arsip.`, "success");
     } catch (error) {
       const detail = succeeded ? ` Berhasil sebelum berhenti: ${succeeded} dari ${total}.` : "";
@@ -245,9 +260,9 @@
   $("logout-button").addEventListener("click", logout);
 
   if (state.credentials.accessToken) {
-    $("login-form").hidden = true;
-    $("session-area").hidden = false;
-    $("session-status").textContent = "Sesi dipulihkan dari tab ini. Buat pratinjau baru untuk melanjutkan.";
+    $("login-view").hidden = true;
+    $("dashboard-view").hidden = false;
+    $("dashboard-session-status").textContent = "Sesi dipulihkan dari tab ini";
   }
 })();
 
