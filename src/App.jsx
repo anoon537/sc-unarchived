@@ -42,14 +42,14 @@ import {
 const SESSION_KEY = "socialchat-archive-session";
 const BATCH_SIZE = 5;
 const templates = [
-  { suffix: "adm18", textColor: "#fff", backgroundColor: "#E06767" },
-  { suffix: "akbar", textColor: "#fff", backgroundColor: "#262626" },
-  { suffix: "azka", textColor: "#000", backgroundColor: "#F1BCBC" },
-  { suffix: "dewi", textColor: "#fff", backgroundColor: "#724100" },
-  { suffix: "endah", textColor: "#fff", backgroundColor: "#FFA125" },
-  { suffix: "fira", textColor: "#000", backgroundColor: "#FFD195" },
-  { suffix: "inspi1", textColor: "#fff", backgroundColor: "#724100" },
-  { suffix: "mei", textColor: "#fff", backgroundColor: "#335A2F" },
+  { suffix: "ADM18", textColor: "#fff", backgroundColor: "#E06767" },
+  { suffix: "AKBAR", textColor: "#fff", backgroundColor: "#262626" },
+  { suffix: "AZKA", textColor: "#fff", backgroundColor: "#F1BCBC" },
+  { suffix: "DEWI", textColor: "#fff", backgroundColor: "#724100" },
+  { suffix: "ENDAH", textColor: "#fff", backgroundColor: "#FFA125" },
+  { suffix: "FIRA", textColor: "#fff", backgroundColor: "#FFD195" },
+  { suffix: "INSPI1", textColor: "#fff", backgroundColor: "#724100" },
+  { suffix: "MEI", textColor: "#fff", backgroundColor: "#335A2F" },
 ];
 const panel = {
   bg: "#2c372f",
